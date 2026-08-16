@@ -1,5 +1,6 @@
 const ProductServices = require("../services/products.services");
 // const 
+
 exports.createproduct = async (req, res)=>{
     try {
         const {id, name, quantity, price, tags, main_category} = req.body;
