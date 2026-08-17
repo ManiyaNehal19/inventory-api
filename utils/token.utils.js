@@ -9,8 +9,8 @@ if(!ACCESS_TOKEN_EXPIRY || !REFRESH_TOKEN_EXPIRY){
 }
 
 function generateAccessToken(user){
-    // console.log(user)
-    return jwt.sign({sub: user._id.toString(), email: user.email}, ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_EXPIRY});
+    // console.log("User",user)
+    return jwt.sign({sub: user._id.toString(), email: user.email, role: user.role}, ACCESS_TOKEN_SECRET, {expiresIn: ACCESS_TOKEN_EXPIRY});
 }
 function generateRefreshToken(user){
     return jwt.sign({sub: user._id.toString()}, REFRESH_TOKEN_SECRET, {expiresIn: REFRESH_TOKEN_EXPIRY});

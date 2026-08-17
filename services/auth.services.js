@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto")
 const SALT_ROUNDS = 12
 class User{
-    static async register(username, email, password){
+    static async register(username, email, password, role){
         const existing = await UserModel.findOne({ email });
         if (existing) {
         const err = new Error("Email already in use");
@@ -12,13 +12,15 @@ class User{
         throw err;
         }
         const hash = await bcrypt.hash(password, SALT_ROUNDS);
-        const user = await UserModel.create({ username, email, password: hash });
+        const user = await UserModel.create({ username, email, password: hash, role:role });
         return this.#sanitize(user);
         
     }
     static async login(email, userpassword){
         
+        // console.log(email)
         const user = await UserModel.findOne({email: email});
+        
         if(!user){
             const err =  new Error("User not found")
             err.statusCode = 401

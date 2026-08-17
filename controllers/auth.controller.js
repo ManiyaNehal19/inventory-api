@@ -7,11 +7,11 @@ function isValidEmailFormat(email) {
 }
 exports.register = async (req, res,next)=>{
     try {
-        const {username, email, password} = req.body;
+        const {username, email, password, role} = req.body;
         if (!isValidEmailFormat(email)) {
             return res.status(400).json({ error: "Invalid email format" });
         }    
-        const regitereduser = await Userclass.register(username, email, password);
+        const regitereduser = await Userclass.register(username, email, password, role);
         res.status(200).json({message: "User registered successfully", regitereduser})
     } catch (error) {
         next(error)
