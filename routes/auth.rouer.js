@@ -1,11 +1,10 @@
 const router = require("express").Router();
 const requireAuth = require("../middleware/auth.middleware");
+const validate = require("../middleware/validate.middleware")
+const {registerSchema, loginSchema} = require("../validators/auth.validators")
 const authfunctions = require("../controllers/auth.controller");
-router.post("/login", authfunctions.login);
-router.post("/register", authfunctions.register)
+router.post("/login", validate(loginSchema),authfunctions.login);
+router.post("/register",validate(registerSchema), authfunctions.register)
 router.post("/refresh",authfunctions.refresh);
 router.post("/logout", authfunctions.logout);
-// router.get("/test/protected", requireAuth, (req, res) => {
-//   res.status(200).json({ message: "You are authenticated", userId: req.userId });
-// });
 module.exports = router
